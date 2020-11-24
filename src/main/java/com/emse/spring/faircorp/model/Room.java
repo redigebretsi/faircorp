@@ -1,37 +1,45 @@
 package com.emse.spring.faircorp.model;
 
-import org.springframework.data.annotation.Id;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.Set;
 
+//Master
+@Entity
+@Table(name = "ROOM")
 public class Room {
     @Id
     @GeneratedValue
     private Long id;
-   //slave
-    @OneToOne()
-    private Window window;
 
-    @Column(nullable = false)
-    private int floor;
+    @Column(name = "Floor",nullable = false)
+    private Integer floor;
 
     @Column(nullable = false)
     private String name;
 
-    @Column
-    private Double current_temprature;
+    @Column(name = "Current_Temperature")
+    private Double currentTemperature;
 
-    @Column
-    private Double target_temprature;
-    public Room(){
+    @Column(name = "target_Temperature")
+    private Double targetTemperature;
+
+
+    @OneToMany(mappedBy = "room")
+    private Set<Window> window;
+
+    @OneToMany(mappedBy = "room")
+    private Set<Heater> heater;
+
+
+    public Room() {
 
     }
-    public Room(int floor,String name){
-        this.floor=floor;
-        this.name=name;
-            }
+
+    public Room(Integer floor, String name) {
+        this.floor = floor;
+        this.name = name;
+    }
 
     public Long getId() {
         return id;
@@ -41,11 +49,11 @@ public class Room {
         this.id = id;
     }
 
-    public int getFloor() {
+    public Integer getFloor() {
         return floor;
     }
 
-    public void setFloor(int floor) {
+    public void setFloor(Integer floor) {
         this.floor = floor;
     }
 
@@ -57,19 +65,21 @@ public class Room {
         this.name = name;
     }
 
-    public Double getCurrent_temprature() {
-        return current_temprature;
+    public Double getCurrentTemperature() {
+        return currentTemperature;
     }
 
-    public void setCurrent_temprature(Double current_temprature) {
-        this.current_temprature = current_temprature;
+    public void setCurrentTemperature(Double currentTemperature) {
+        this.currentTemperature = currentTemperature;
     }
 
-    public Double getTarget_temprature() {
-        return target_temprature;
+    public Double getTargetTemperature() {
+        return targetTemperature;
     }
 
-    public void setTarget_temprature(Double target_temprature) {
-        this.target_temprature = target_temprature;
+    public void setTargetTemperature(Double targetTemperature) {
+        this.targetTemperature = targetTemperature;
     }
 }
+
+
