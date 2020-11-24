@@ -8,7 +8,7 @@ public class ConsoleGreetingService implements GreetingService {
 
     @Override
     public void greet(String name) {
-        System.out.println(name);
+        System.out.println(new StringBuilder().append("Hello, ").append(name).toString());
     }
    ;
 }

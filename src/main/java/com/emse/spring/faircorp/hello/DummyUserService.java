@@ -1,20 +1,26 @@
 package com.emse.spring.faircorp.hello;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.stream.Stream;
 
 @Service
 public class DummyUserService implements UserService{
 
 
-    public void greet(String[] name) {
-        System.out.println("Hello, " + name[0] +", "+ "Hello, " + name[1]);
+  @Autowired
+  private GreetingService b;
 
+    public void setB(GreetingService b) {
+        this.b = b;
     }
 
     @Override
     public void greetAll() {
-            String[] users = {"Elodie","Charles"};
-            greet(users);
+            String[] users = {"Elodie!","Charles!"};
+        Stream.of(users).forEach(user -> b.greet(user));
+
 
     }
 }
