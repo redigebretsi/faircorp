@@ -12,6 +12,10 @@ public class DummyUserService implements UserService{
   @Autowired
   private GreetingService b;
 
+    public GreetingService getB() {
+        return b;
+    }
+
     public void setB(GreetingService b) {
         this.b = b;
     }
