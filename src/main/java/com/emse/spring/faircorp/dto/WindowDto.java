@@ -6,8 +6,9 @@ import com.emse.spring.faircorp.model.WindowStatus;
 public class WindowDto {
     private Long id;
     private String name;
-    private WindowStatus status;
-    private RoomDto room;
+    private WindowStatus windowStatus;
+    private String roomName;
+    private Long roomId;
 
     public WindowDto() {
     }
@@ -15,8 +16,9 @@ public class WindowDto {
     public WindowDto(Window window) {
         this.id = window.getId();
         this.name = window.getName();
-        this.status = window.getWindowStatus();
-        this.room = new RoomDto(window.getRoom());
+        this.windowStatus = window.getWindowStatus();
+        this.roomName = window.getRoom().getName();
+        this.roomId = window.getRoom().getId();
     }
 
     public Long getId() {
@@ -35,21 +37,27 @@ public class WindowDto {
         this.name = name;
     }
 
-    public WindowStatus getStatus() {
-        return status;
+    public WindowStatus getWindowStatus() {
+        return windowStatus;
     }
 
-    public void setStatus(WindowStatus status) {
-        this.status = status;
+    public void setWindowStatus(WindowStatus windowStatus) {
+        this.windowStatus = windowStatus;
     }
 
-
-    public RoomDto getRoom() {
-        return room;
+    public String getRoomName() {
+        return roomName;
     }
 
-    public void setRoom(RoomDto room) {
-        this.room = room;
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
     }
 
+    public Long getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(Long roomId) {
+        this.roomId = roomId;
+    }
 }

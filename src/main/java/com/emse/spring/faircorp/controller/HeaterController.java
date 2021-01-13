@@ -50,7 +50,7 @@ public class HeaterController {
 
     @PostMapping // (8)
     public HeaterDto create(@RequestBody HeaterDto dto) {
-        Room room = roomDao.getOne(dto.getRoom().getId());
+        Room room = roomDao.getOne(dto.getRoomId());
         Building building = buildingDao.getOne(dto.getId());
         Heater heater = null;
 

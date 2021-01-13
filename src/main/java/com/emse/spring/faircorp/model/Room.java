@@ -1,10 +1,8 @@
 package com.emse.spring.faircorp.model;
 
-
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
-//Master
 @Entity
 @Table(name = "ROOM")
 public class Room {
@@ -12,44 +10,39 @@ public class Room {
     @GeneratedValue
     private Long id;
 
-    @Column(name = "Floor",nullable = false)
+    @Column(nullable = false)// (4)
     private Integer floor;
 
     @Column(nullable = false)
     private String name;
 
-    @Column(name = "Current_Temperature")
-    private Double currentTemperature;
+    @Column
+    private Double current_temperature;
 
-    @Column(name = "target_Temperature")
-    private Double targetTemperature;
-
-
-    @OneToMany(mappedBy = "room")
-    private Set<Window> window;
+    @Column
+    private Double target_temperature;
 
     @OneToMany(mappedBy = "room")
-    private Set<Heater> heater;
+    private List<Heater> heaters;
 
-    @ManyToOne
+    @OneToMany(mappedBy = "room")
+    private List<Window> windows;
+
+    @ManyToOne(optional = false)
     private Building building;
 
-
     public Room() {
-
     }
 
-    public Room(Integer floor, String name) {
-        this.floor = floor;
-        this.name = name;
-    }
     public Room(int floor, String name, Double current_temperature, Double target_temperature, Building building) {
         this.floor = floor;
         this.name = name;
-        this.currentTemperature = current_temperature;
-        this.targetTemperature = target_temperature;
+        this.current_temperature = current_temperature;
+        this.target_temperature = target_temperature;
         this.building = building;
     }
+
+
     public Long getId() {
         return id;
     }
@@ -74,24 +67,39 @@ public class Room {
         this.name = name;
     }
 
-    public Double getCurrentTemperature() {
-        return currentTemperature;
+    public Double getCurrent_temperature() {
+        return current_temperature;
     }
 
-    public void setCurrentTemperature(Double currentTemperature) {
-        this.currentTemperature = currentTemperature;
+    public void setCurrent_temperature(Double current_temperature) {
+        this.current_temperature = current_temperature;
     }
 
-    public Double getTargetTemperature() {
-        return targetTemperature;
+    public Double getTarget_temperature() {
+        return target_temperature;
     }
 
-    public void setTargetTemperature(Double targetTemperature) {
-        this.targetTemperature = targetTemperature;
+    public void setTarget_temperature(Double target_temperature) {
+        this.target_temperature = target_temperature;
     }
+
+    public List<Heater> getHeaters() {
+        return heaters;
+    }
+
+    public void setHeaters(List<Heater> heaters) {
+        this.heaters = heaters;
+    }
+
+    public List<Window> getWindows() {
+        return windows;
+    }
+
+    public void setWindows(List<Window> windows) {
+        this.windows = windows;
+    }
+
     public Building getBuilding() { return building; }
 
     public void setBuilding(Building building) { this.building=building; }
 }
-
-

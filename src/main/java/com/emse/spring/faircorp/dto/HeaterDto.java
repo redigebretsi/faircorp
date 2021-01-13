@@ -5,22 +5,21 @@ import com.emse.spring.faircorp.model.HeaterStatus;
 
 public class HeaterDto {
     private Long id;
-    private String name;
-    private long power;
     private HeaterStatus heaterStatus;
-    private RoomDto room;
-
+    private String name;
+    private Long roomId;
+    private Long power;
     public HeaterDto() {
+
     }
+
 
     public HeaterDto(Heater heater) {
         this.id = heater.getId();
-        this.name = heater.getName();
-        this.power = heater.getPower();
-
         this.heaterStatus = heater.getHeaterStatus();
-
-        this.room = new RoomDto(heater.getRoom());
+        this.name = heater.getName();
+        this.roomId = heater.getRoom().getId();
+        this.power = heater.getPower();
     }
 
     public Long getId() {
@@ -31,23 +30,6 @@ public class HeaterDto {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public long getPower() {
-        return power;
-    }
-
-    public void setPower(long power) {
-        this.power = power;
-    }
-
-
     public HeaterStatus getHeaterStatus() {
         return heaterStatus;
     }
@@ -56,12 +38,28 @@ public class HeaterDto {
         this.heaterStatus = heaterStatus;
     }
 
-
-    public RoomDto getRoom() {
-        return room;
+    public String getName() {
+        return name;
     }
 
-    public void setRoom(RoomDto room) {
-        this.room = room;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+    public Long getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(Long roomId) {
+        this.roomId = roomId;
+    }
+
+    public Long getPower() {
+        return power;
+    }
+
+    public void setPower(Long power) {
+        this.power = power;
     }
 }

@@ -2,63 +2,43 @@ package com.emse.spring.faircorp.model;
 
 import javax.persistence.*;
 
-//Slave
-@Entity
-@Table(name = "Heater")
-public class Heater {
 
+@Entity
+@Table(name = "HEATER")
+public class Heater {
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false)// (4)
     private String name;
 
-    @Column
-    private long power;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private HeaterStatus heaterStatus;
 
-    @ManyToOne
+    @Column
+    private Long power;
+
+    @ManyToOne(optional = false)
     private Room room;
 
-    @ManyToOne
-    private Building building;
-
-    public Heater(){
-
+    public Heater(String name, Room room, Building building) {
     }
 
-    public Heater(String name, Room room, Building building){
+    public Heater(String name, Room room, HeaterStatus heaterStatus, Long power) {
+        this.room = room;
         this.name = name;
-        this.room = room;
-        this.building =building;
+        this.heaterStatus = heaterStatus;
+        this.power = power;
     }
 
-
-    public Building getBuilding() {
-        return building;
-    }
-
-    public void setBuilding(Building building) {
-        this.building = building;
-    }
-
-    public Room getRoom() {
-        return room;
-    }
-
-    public void setRoom(Room room) {
-        this.room = room;
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -70,11 +50,11 @@ public class Heater {
         this.name = name;
     }
 
-    public long getPower() {
+    public Long getPower() {
         return power;
     }
 
-    public void setPower(long power) {
+    public void setPower(Long power) {
         this.power = power;
     }
 
@@ -86,5 +66,11 @@ public class Heater {
         this.heaterStatus = heaterStatus;
     }
 
+    public Room getRoom() {
+        return room;
+    }
 
+    public void setRoom(Room room) {
+        this.room = room;
+    }
 }

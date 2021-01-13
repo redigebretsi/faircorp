@@ -19,8 +19,8 @@ public class RoomDto {
         this.id = room.getId();
         this.floor = room.getFloor();
         this.name = room.getName();
-        this.current_temperature = room.getCurrentTemperature();
-        this.target_temperature = room.getTargetTemperature();
+        this.current_temperature = room.getCurrent_temperature();
+        this.target_temperature = room.getTarget_temperature();
         this.buildingId = room.getBuilding().getId();
     }
 

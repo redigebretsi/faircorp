@@ -1,35 +1,29 @@
 package com.emse.spring.faircorp.controller;
 
-import com.emse.spring.faircorp.dao.BuildingDao;
-import com.emse.spring.faircorp.dao.HeaterDao;
 import com.emse.spring.faircorp.dao.RoomDao;
 import com.emse.spring.faircorp.dao.WindowDao;
 import com.emse.spring.faircorp.dto.WindowDto;
 import com.emse.spring.faircorp.model.Room;
 import com.emse.spring.faircorp.model.Window;
 import com.emse.spring.faircorp.model.WindowStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController
 @CrossOrigin
-@RequestMapping("/api/windows")
-@Transactional
+@RestController // (1)
+@RequestMapping("/api/windows") // (2)
+@Transactional // (3)
 public class WindowController {
 
-    private final BuildingDao buildingDao;
-    private final RoomDao roomDao;
     private final WindowDao windowDao;
-    private final HeaterDao heaterDao;
+    private final RoomDao roomDao;
 
-    public WindowController(BuildingDao buildingDao, RoomDao roomDao, WindowDao windowDao, HeaterDao heaterDao) {
-        this.buildingDao = buildingDao;
-        this.roomDao = roomDao;
+    public WindowController(WindowDao windowDao, RoomDao roomDao) { // (4)
         this.windowDao = windowDao;
-        this.heaterDao = heaterDao;
+        this.roomDao = roomDao;
     }
 
     @GetMapping // (5)
@@ -45,16 +39,24 @@ public class WindowController {
     @PutMapping(path = "/{id}/switch")
     public WindowDto switchStatus(@PathVariable Long id) {
         Window window = windowDao.findById(id).orElseThrow(IllegalArgumentException::new);
-        window.setWindowStatus(window.getWindowStatus() == WindowStatus.OPEN ? WindowStatus.CLOSED : WindowStatus.OPEN);
+        window.setWindowStatus(window.getWindowStatus() == WindowStatus.OPEN ? WindowStatus.CLOSED: WindowStatus.OPEN);
         return new WindowDto(window);
     }
 
-
     @PostMapping // (8)
     public WindowDto create(@RequestBody WindowDto dto) {
-        Room room = roomDao.getOne(dto.getRoom().getId());
+        // WindowDto must always contain the window room
+        Room room = roomDao.getOne(dto.getRoomId());
         Window window = null;
-        return new WindowDto(windowDao.save(new Window(dto.getName(), dto.getStatus(), room)));
+
+        if (dto.getId() == null) {
+            window = windowDao.save(new Window(room, dto.getName(), dto.getWindowStatus()));
+        }
+        else {
+            window = windowDao.getOne(dto.getId());  // (9)
+            window.setWindowStatus(dto.getWindowStatus());
+        }
+        return new WindowDto(window);
     }
 
     @DeleteMapping(path = "/{id}")
