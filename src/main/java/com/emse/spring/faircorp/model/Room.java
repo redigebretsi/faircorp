@@ -31,6 +31,9 @@ public class Room {
     @OneToMany(mappedBy = "room")
     private Set<Heater> heater;
 
+    @ManyToOne(optional = false)
+    private Building building;
+
 
     public Room() {
 
@@ -40,7 +43,13 @@ public class Room {
         this.floor = floor;
         this.name = name;
     }
-
+    public Room(int floor, String name, Double current_temperature, Double target_temperature, Building building) {
+        this.floor = floor;
+        this.name = name;
+        this.currentTemperature = current_temperature;
+        this.targetTemperature = target_temperature;
+        this.building = building;
+    }
     public Long getId() {
         return id;
     }
@@ -80,6 +89,9 @@ public class Room {
     public void setTargetTemperature(Double targetTemperature) {
         this.targetTemperature = targetTemperature;
     }
+    public Building getBuilding() { return building; }
+
+    public void setBuilding(Building building) { this.building=building; }
 }
 
 

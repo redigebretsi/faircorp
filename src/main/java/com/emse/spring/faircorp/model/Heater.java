@@ -4,17 +4,18 @@ import javax.persistence.*;
 
 //Slave
 @Entity
-@Table(name="Heater")
+@Table(name = "Heater")
 public class Heater {
 
     @Id
-    private Long id;
+    @GeneratedValue
+    private long id;
 
     @Column(nullable = false)
     private String name;
 
     @Column
-    private Long power;
+    private long power;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -23,19 +24,41 @@ public class Heater {
     @ManyToOne
     private Room room;
 
+    @ManyToOne
+    private Building building;
+
     public Heater(){
 
     }
-    public Heater(String name, Room room){
+
+    public Heater(String name, Room room, Building building){
         this.name = name;
+        this.room = room;
+        this.building =building;
+    }
+
+
+    public Building getBuilding() {
+        return building;
+    }
+
+    public void setBuilding(Building building) {
+        this.building = building;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
         this.room = room;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -47,11 +70,11 @@ public class Heater {
         this.name = name;
     }
 
-    public Long getPower() {
+    public long getPower() {
         return power;
     }
 
-    public void setPower(Long power) {
+    public void setPower(long power) {
         this.power = power;
     }
 
@@ -62,6 +85,6 @@ public class Heater {
     public void setHeaterStatus(HeaterStatus heaterStatus) {
         this.heaterStatus = heaterStatus;
     }
+
+
 }
-
-
