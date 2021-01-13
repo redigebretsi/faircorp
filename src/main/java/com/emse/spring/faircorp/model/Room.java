@@ -31,7 +31,7 @@ public class Room {
     @OneToMany(mappedBy = "room")
     private Set<Heater> heater;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Building building;
 
 
