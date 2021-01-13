@@ -9,9 +9,6 @@ api/Windows (GET) send windows list\
 /api/Windows/{window_id} (DELETE) delete a window
 
 /api/heaters (GET) send heaters list\
-/api/heaters (POST) add a heater\
-/api/heaters/{heater_id} (GET) read a heater\
-/api/heaters/{heater_id} (DELETE) delete a heater
 
 /api/rooms (GET) send room list\
 /api/rooms (POST) add a room\
