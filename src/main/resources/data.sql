@@ -2,7 +2,7 @@ INSERT INTO BUILDING(id,name) VALUES (-10, 'Building1');
 INSERT INTO BUILDING(id,name) VALUES (-9, 'Building2');
 
 INSERT INTO ROOM(floor, BUILDING_ID, id, name,  current_temperature, target_temperature) VALUES( 1, -9, -10, 'Room1',  22.3, 20.0);
-INSERT INTO ROOM(floor, BUILDING_ID, id, name,  current_temperature, target_temperature)  VALUES( 1, -2, -9, 'Room2',  29.3, 10.0);
+--INSERT INTO ROOM(floor, BUILDING_ID, id, name,  current_temperature, target_temperature)  VALUES( 1, -2, -9, 'Room2',  29.3, 10.0);
 
 INSERT INTO HEATER(id, heater_status, name, power, room_id,BUILDING_ID) VALUES(-10, 'ON', 'Heater1', 2000, -10,-9);
 INSERT INTO HEATER(id, heater_status, name, power, room_id,BUILDING_ID) VALUES(-9, 'ON', 'Heater2', 1000, -10,-9);
